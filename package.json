@@ -66,14 +66,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Scan85/react-project.git"
+    "url": "git+https://github.com/Scan85/Formular.git"
   },
   "author": "Seyit Can",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Scan85/react-project/issues"
+    "url": "https://github.com/Scan85/Formular/issues"
   },
-  "homepage": "https://github.com/Scan85/react-project#readme",
+  "homepage": "https://github.com/Scan85/Formular#readme",
   "keywords": [
     "react",
     "webpack-2"
