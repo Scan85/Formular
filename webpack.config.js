@@ -22,14 +22,29 @@ module.exports = {
   },
   module: {
     rules: [{
-      test: /\.scss/,
-      use: cssConfig
+      test: /\.css$/,
+      include: /node_modules/,
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: [
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'postcss-loader',
+          },
+        ],
+      })
     }, {
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loader: 'babel-loader'
+      test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+      use: {
+        loader: 'url-loader',
+        options: {
+          limit: 100000
+        }
+      }
     }, {
-      test: /\.jsx?$/,
+      test: /\.(js|jsx)$/,
       include: [
         path.join(__dirname, 'src')
       ],
@@ -37,7 +52,7 @@ module.exports = {
       loader: 'babel-loader',
       query: {
         presets: ['es2015', 'react'],
-        plugins: ['transform-runtime']
+        plugins: ['transform-runtime', 'lodash']
       }
     }]
   },
@@ -51,7 +66,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPLugin({
-      title: 'Formular',
+      title: 'Formular Project',
       minify: {
         collapseWhitespaces: true
       },

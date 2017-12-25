@@ -1,8 +1,8 @@
-# React Formular
+# React Starter Pack
 
 ### Tech
 
-* [Webpack]
+* [Webpack 2]
 * [Webpack Dev Server]
 * [Rimraf]
 * [Extract Text Plugin]
