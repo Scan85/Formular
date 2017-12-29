@@ -1,15 +1,15 @@
-let HtmlWebpackPLugin = require('html-webpack-plugin')
-let ExtractTextPlugin = require('extract-text-webpack-plugin')
-let webpack = require('webpack')
-let path = require('path')
-let isProd = process.argv.indexOf('-p') !== -1
-let cssDev = ['style-loader', 'css-loader', 'sass-loader']
+let HtmlWebpackPLugin = require('html-webpack-plugin');
+let ExtractTextPlugin = require('extract-text-webpack-plugin');
+let webpack = require('webpack');
+let path = require('path');
+let isProd = process.argv.indexOf('-p') !== -1;
+let cssDev = ['style-loader', 'css-loader', 'sass-loader'];
 let cssProd = ExtractTextPlugin.extract({
   fallback: 'style-loader',
   use: ['css-loader', 'sass-loader'],
   publicPath: '/app'
-})
-let cssConfig = isProd ? cssProd : cssDev
+});
+let cssConfig = isProd ? cssProd : cssDev;
 
 module.exports = {
   entry: './src/app.jsx',
@@ -28,12 +28,12 @@ module.exports = {
         fallback: 'style-loader',
         use: [
           {
-            loader: 'css-loader',
+            loader: 'css-loader'
           },
           {
-            loader: 'postcss-loader',
-          },
-        ],
+            loader: 'postcss-loader'
+          }
+        ]
       })
     }, {
       test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
@@ -82,4 +82,4 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin()
   ]
-}
+};

@@ -2,15 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'semantic-ui-react';
 
-export class LoginInput extends React.Component {
+class LoginInput extends React.Component {
   constructor(props) {
     super(props);
-    this.propTypes = {
-      setValue: PropTypes.func,
-      label: PropTypes.string,
-      icon: PropTypes.string,
-      type: PropTypes.string
-    };
     this.state = {
       fieldValue: '',
       error: false
@@ -19,10 +13,7 @@ export class LoginInput extends React.Component {
     this.onBlur = this.onBlur.bind(this);
   }
   checkValue(value) {
-    if (value && value.length > 0) {
-      return true;
-    }
-    return false;
+    return !!(value && value.length > 0);
   }
   onChange(event) {
     if (this.checkValue(event.target.value)) {
@@ -41,7 +32,7 @@ export class LoginInput extends React.Component {
       this.setState({
         error: false
       });
-      this.props.setValue(event);
+      this.props.setValue(this.props.id, event);
     } else {
       this.setState({
         error: true
@@ -65,3 +56,13 @@ export class LoginInput extends React.Component {
     );
   }
 }
+
+LoginInput.propTypes = {
+  id: PropTypes.string.isRequired,
+  setValue: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired
+};
+
+export default LoginInput;
