@@ -21,6 +21,7 @@ class LoginInput extends React.Component {
         fieldValue: event.target.value,
         error: false
       });
+      this.props.setValue(this.props.id, event);
     } else {
       this.setState({
         error: true

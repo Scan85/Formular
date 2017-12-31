@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Form, Grid, Message } from 'semantic-ui-react';
 import LoginInput from './component/LoginInput';
 import { connect } from 'react-redux';
-import actions from '../../actions/login/loginAction';
+import { startLogin, endLogin, sendRequest } from '../../actions/login/loginAction';
 
 class Login extends React.Component {
   constructor(props) {
@@ -10,7 +10,8 @@ class Login extends React.Component {
     this.state = {
       userName: '',
       password: '',
-      error: false
+      error: false,
+      loading: false
     };
     this.onUserUpdate = this.onUserUpdate.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -46,17 +47,16 @@ class Login extends React.Component {
     }
   }
   onSubmit() {
-    if (this.state.password && this.state.password.length > 0 &&
-      this.state.userName && this.state.userName.length > 0) {
-      this.setState({ error: false });
-      const user = {
-        username: this.state.userName,
-        password: this.state.password
-      };
-      this.props.createUser(user);
+    if (this.props.userFetching) {
       return;
     }
-    this.setState({ error: true });
+    if (this.state.password && this.state.password.length > 0 &&
+      this.state.userName && this.state.userName.length > 0) {
+      this.setState({ error: false, loading: true });
+      sendRequest(this.state.userName, this.state.password);
+      return;
+    }
+    this.setState({ error: true, loading: false });
   }
   render() {
     let errorMessage = this.state.error;
@@ -70,7 +70,8 @@ class Login extends React.Component {
                 <LoginInput setValue={this.onUserUpdate} id='password' label='Password' icon='lock' type='password' />
                 { errorMessage ? <Message error visible header='Authentifizierung Fehlgeschlagen'
                   content='Bitte geben Sie einen gültigen Benuternamen und/oder Passwort ein.' /> : null }
-                <Button type='submit' color='teal' fluid size='large'>Login</Button>
+                { this.state.loading ? <Button type='submit' color='teal' loading fluid size='large'>
+                    Login</Button> : <Button type='submit' color='teal' fluid size='large'>Login</Button> }
               </div>
             </Form>
           </Grid.Column>
@@ -80,14 +81,10 @@ class Login extends React.Component {
   }
 }
 
-const stateToProps = (state) => {
+export default connect((state) => {
   return {
-    user: state
+    userFetching: state.user.fetching,
+    userFetched: state.user.fetched,
+    userStatus: state.user.loginStatus
   };
-};
-const dispatchToProps = (dispatch) => {
-  return {
-    createUser: (user) => dispatch(actions.createUser(user))
-  };
-};
-export default connect(stateToProps, dispatchToProps)(Login);
+})(Login);

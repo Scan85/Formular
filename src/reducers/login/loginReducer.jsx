@@ -8,17 +8,31 @@ const initailState = {
 };
 
 export function loginReducer(state = initailState, action) {
-  const newState = Object.assign({}, state);
   switch (action.type) {
   case constants.USER_CREATED:
-    return { newState, fetching: true };
+    return { ...state, fetching: true };
   case constants.USER_RECEIVED:
-    return { newState, fetching: true };
+    return { ...state,
+      fetching: action.payload.fetching,
+      fetched: action.payload.fetched,
+      loginStatus: action.payload.loginStatus,
+      error: action.payload.error
+    };
   case constants.USER_LOGGED_IN:
-    return { newState, fetching: false, fetched: true, loginStatus: action.payload };
+    return { ...state,
+      fetching: action.payload.fetching,
+      fetched: action.payload.fetched,
+      loginStatus: action.payload.loginStatus,
+      error: action.payload.error
+    };
   case constants.USER_ERROR:
-    return { newState, fetching: false, fetched: true, error: action.payload };
+    return { ...state,
+      fetching: action.payload.fetching,
+      fetched: action.payload.fetched,
+      loginStatus: action.payload.loginStatus,
+      error: action.payload.error
+    };
   default:
-    return newState;
+    return state;
   }
 }

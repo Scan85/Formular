@@ -7,12 +7,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from './stores/store';
+import state from './stores/store';
 import Navigation from './views/navigation/Navigation';
 
 ReactDOM.render(
   <Router>
-    <Provider store={store}>
+    <Provider store={state}>
       <div style={{ height: '100%', backgroundColor: '#f7f7f7' }}>
         <Navigation />
         <Route exact path='/' component={Login} />
