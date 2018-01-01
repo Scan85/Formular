@@ -1,24 +1,15 @@
 import 'babel-polyfill';
 import 'semantic-ui-css/semantic.min.css';
 import './css/app.css';
-import Login from './views/login/Login';
-import About from './views/footer/About';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter as Router, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import state from './stores/store';
-import Navigation from './views/navigation/Navigation';
+import Home from './views/Home';
 
 ReactDOM.render(
-  <Router>
-    <Provider store={state}>
-      <div style={{ height: '100%', backgroundColor: '#f7f7f7' }}>
-        <Navigation />
-        <Route exact path='/' component={Login} />
-        <Route path='/about' component={About} />
-      </div>
-    </Provider>
-  </Router>,
+  <Provider store={state}>
+    <Home/>
+  </Provider>,
   document.getElementById('app')
 );
